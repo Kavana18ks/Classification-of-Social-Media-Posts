@@ -1,0 +1,166 @@
+import re
+import string
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+import pandas as pd
+# Define a function to clean and preprocess text
+def clean_text(text, custom_stopwords=None):
+    # Remove special characters and punctuation
+    text = re.sub(r'[^\w\s]', '', text)
+    # Convert text to lowercase
+    text = text.lower() 
+    # Tokenize text
+    tokens = word_tokenize(text) 
+    # Remove stopwords
+    stop_words = set(nltk.corpus.stopwords.words('english'))
+    if custom_stopwords:
+        stop_words.update(custom_stopwords)
+    tokens = [word for word in tokens if word not in stop_words] 
+    # Lemmatize tokens
+    lemmatizer = WordNetLemmatizer()
+    tokens = [lemmatizer.lemmatize(word) for word in tokens] 
+    # Join tokens back into a single string
+    cleaned_text = ' '.join(tokens)
+    return cleaned_text
+# Define your custom stopwords
+custom_stopwords = ['im', 'a', 'to','would','dont','ive','like','one','get','know','make','want','also','anyone','even','could','much']
+
+# Cleaning and EDA of Cardiology
+df = pd.read_csv("Cardiology.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Clean_Cardiology.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+# Cleaning and EDA of Orthopedics
+df = pd.read_csv("Orthopedics.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Clean_Orthopedics.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+# Cleaning and EDA of Neurology
+df = pd.read_csv("Neurology.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Clean_Neurology.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+# Cleaning and EDA of Oncology
+df = pd.read_csv("Oncology.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Clean_Oncology.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+# Cleaning and EDA of Psychiatry
+df = pd.read_csv("Psychiatry.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Clean_Psychiatry.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+# Cleaning and EDA of Dermatology
+df = pd.read_csv("Dermatology.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Clean_Dermatology.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+# Cleaning and EDA of Gastroenterology
+df = pd.read_csv("Gastroenterology.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Clean_Gastroenterology.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+#merging of all Medical dataset 
+import pandas as pd
+df1 = pd.read_csv('Clean_Cardiology.csv')
+df2 = pd.read_csv('Clean_Orthopedics.csv')
+df3 = pd.read_csv('Clean_Neurology.csv')
+df4 = pd.read_csv('Clean_Oncology.csv')
+df5 = pd.read_csv('Clean_Psychiatry.csv')
+df6 = pd.read_csv('Clean_Dermatology.csv')
+df7 = pd.read_csv('Clean_Gastroenterology.csv')
+# Concatenate the two DataFrames along the rows
+df = pd.concat([df1, df2, df3, df4, df5, df6, df7], ignore_index=True)
+# Save the merged DataFrame to a new CSV file
+df.to_csv('Medical.csv', index=False)
+
+#creating new column called as category  in medical data set
+df.to_csv('Medical.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content','Health','Cleaned_text']
+df_health= pd.read_csv("Medical.csv",names=col_nam)
+df_health['Category']='Medical'
+
+#Cleaning and EDA of non medical data set
+df = pd.read_csv("Non_medical.csv")
+# Apply the clean_text function with custom stopwords
+df['Cleaned_text'] = df['Content'].apply(clean_text, custom_stopwords=custom_stopwords)
+# Save the DataFrame with cleaned text data to a new CSV file
+df.to_csv('Non_medical.csv', index=False)
+column_name = 'Cleaned_text'
+# Tokenize the text in the specified column and flatten the list of tokens
+tokens = df[column_name].apply(lambda x: word_tokenize(str(x))).explode()
+# Get the frequency of each word
+word_freq = tokens.value_counts()
+print("Frequency of words:")
+print(word_freq.head(20))
+
+#merging medical and non medical data set
+df1 = pd.read_csv('Medical.csv')
+df2 = pd.read_csv('Non_medical.csv')
+df = pd.concat([df1, df2], ignore_index=True)
+# Save the merged DataFrame to a new CSV file
+df.to_csv('Final_dataset.csv', index=False)
