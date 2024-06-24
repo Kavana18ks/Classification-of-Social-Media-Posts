@@ -1,0 +1,230 @@
+import praw
+import pandas as pd
+reddit =praw.Reddit(user_agent=True, client_id="HDsBDOopPr5cm7tJrWzbDw", client_secret="YH4PC-hiPsWTwfyI1ha_9OF7T9clIQ",
+                   username="add_ur_own_username", passward="add_ur_own_passward")
+
+
+#Collecting data by individually mentioning its specialties
+
+#Cardiology data
+keywords = ['Cardiology','ECG','HeartDisease']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+
+#creating a file and deleting duplicate and empty rows
+df.to_csv('Cardiology.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("Cardiology.csv",names=col_nam)
+df_health['Health']='Cardiology'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle','Above_18'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health.to_csv('Cardiology.csv', index=False)
+
+#Orthopedics data
+keywords = ['Orthopedics','physicaltherapy']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+
+df.to_csv('Orthopedics.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("Orthopedics.csv",names=col_nam)
+df_health['Health']='Orthopedics'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health.to_csv('Orthopedics.csv', index=False)
+
+#Neurology data
+keywords = ['neuroscience','neurology']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+
+df.to_csv('Neurology.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("Neurology.csv",names=col_nam)
+df_health['Health']='Neurology'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health.to_csv('Neurology.csv', index=False)
+
+
+#Oncology data
+keywords = ['Oncology','cancer']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+
+df.to_csv('Oncology.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("Oncology.csv",names=col_nam)
+df_health['Health']='Oncology'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health.to_csv('Oncology.csv', index=False)
+
+#Pychology data
+keywords = ['psychology','mentalhealth']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+
+df.to_csv('Psychiatry.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("Psychiatry.csv",names=col_nam)
+df_health['Health']='Psychiatry'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health.to_csv('Psychiatry.csv', index=False)
+
+
+#Dermatology data
+keywords = ['Dermatology','SkincareAddiction']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+
+df.to_csv('Dermatology.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("Dermatology.csv",names=col_nam)
+df_health['Health']='Dermatology'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health.to_csv('Dermatology.csv', index=False)
+
+#Gastroenterology
+keywords = ['Gastroenterology','ibs']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+
+df.to_csv('Gastroenterology.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("Gastroenterology.csv",names=col_nam)
+df_health['Health']='Gastroenterology'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health.to_csv('Gastroenterology.csv', index=False)
+
+#Collecting of non medical data
+keywords = ['AnimalAdvice','software','TrueFilm','education','SuperheroFans','cooking','DC_Cinematic'
+            ,'Ornithology','forestry','MakeupEducation','PlasticFreeLiving','HomeImprovement'
+            ,'Tourism','solotravel','teaching','PoliticalDiscussion','AnimalBehavior','MovieSuggestions'
+            ,'MovieSuggestions','AskAcademia','AskCulinary','DC_Cinematic','Birding','MakeupAddiction'
+            ,'ZeroWaste','InteriorDesign','TravelPlanning','StudentLoans','NeutralPolitics']
+df=[]
+for keyword in keywords:
+    for post in reddit.subreddit(keyword).hot(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).top(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).new(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+    for post in reddit.subreddit(keyword).controversial(limit=None):
+        df.append([post.author, post.title,post.over_18,post.selftext])
+df=pd.DataFrame(df,columns=['Author','Title','Over_18','Content'])
+df
+df.to_csv('non_medical.csv',header=False,encoding='utf-8',index=False)
+col_nam=['Author','Tittle','Above_18','Content']
+df_health= pd.read_csv("non_medical.csv",names=col_nam)
+df_health['Category']='Non medical'
+num_rows = df_health.shape[0]
+print("Number of rows in the CSV file:", num_rows)
+df_health.dropna(subset=['Content','Author','Tittle','Above_18'], inplace=True)
+print("Without empty rows",df_health.shape[0])
+df_health.drop_duplicates(inplace=True)
+print("Without duplicate rows",df_health.shape[0])
+df_health=df_health.head(17650)
+df_health.to_csv('Non_medical.csv', index=False)
